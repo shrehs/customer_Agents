@@ -1,13 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
+from fastapi_jwt_auth import AuthJWT
 from database.config import SessionLocal
 from database.models import Patient
 import bcrypt
-from fastapi_jwt_auth import AuthJWT #Issue in importing the lib
 
 router = APIRouter()
 
-# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -15,10 +14,11 @@ def get_db():
     finally:
         db.close()
 
-@router.post("/register")
-def register(name: str, email: str, password: str, db: Session = Depends(get_db)):
-    hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-    new_patient = Patient(name=name, email=email, password=hashed_password)
-    db.add(new_patient)
-    db.commit()
-    return {"message": "User registered successfully"}
+@router.post("/login")
+def login(email: str, password: str, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+    user = db.query(Patient).filter(Patient.email == email).first()
+    if not user or not bcrypt.checkpw(password.encode(), user.password.encode()):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    access_token = Authorize.create_access_token(subject=user.email)
+    return {"access_token": access_token}
