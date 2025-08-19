@@ -1,6 +1,12 @@
-from crewai import Agent
+# Placeholder for scheduler agent
+class MockAgent:
+    def __init__(self, name, role, goal, backstory):
+        self.name = name
+        self.role = role
+        self.goal = goal
+        self.backstory = backstory
 
-scheduler = Agent(
+scheduler = MockAgent(
     name="Scheduler AI",
     role="Appointment Scheduler",
     goal="Find available slots and confirm appointments.",
