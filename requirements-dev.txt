@@ -1,0 +1,21 @@
+# FastAPI and web server
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+
+# Database
+sqlalchemy>=2.0.0
+
+# Environment and configuration
+python-dotenv>=1.0.0
+
+# Development and testing
+pytest>=7.0.0
+httpx>=0.24.0
+
+# Optional AI dependencies (install when needed)
+# crewai>=0.40.0  # Uncomment when ready for AI features
+# openai>=1.13.0  # Uncomment when ready for AI features
+
+# Optional Authentication dependencies (install when needed)
+# fastapi-jwt-auth>=0.5.0  # Uncomment for JWT auth
+# bcrypt>=4.0.0  # Uncomment for secure password hashing

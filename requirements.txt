@@ -1,0 +1,13 @@
+# Essential packages for basic functionality
+fastapi
+uvicorn[standard]
+sqlalchemy
+python-dotenv
+pydantic
+
+# Authentication (simple version)
+bcrypt
+
+# Testing
+pytest
+httpx
